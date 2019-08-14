@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "64915764479",
+    "firebase_url": "https://worklog-CHANGETOYOURS.firebaseio.com",
+    "project_id": "worklog-CHANGETOYOURS",
+    "storage_bucket": "worklog-CHANGETOYOURS.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64915764479:android:e1e84368bef1a934",
+        "android_client_info": {
+          "package_name": "com.newstrange.loginrecord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64915764479-oqm8v49fjZ1kivgbpkoljnt114i3bg8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newstrange.loginrecord",
+            "certificate_hash": "0f06a963ac31ab7621399ce519c8714947fbb8d2"
+          }
+        },
+        {
+          "client_id": "64915764479-g6nbla1jkvpg2kprq76svpe6aso33462.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDivavb9ziPXfxSEB4vQhmt540g_ulCvHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64915764479-g6nbla1jkvpg2kprq56svpe6eso33462.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

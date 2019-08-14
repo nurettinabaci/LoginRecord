@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LoginRecord</string>
+    <string name="change_name">İsmi düzelt</string>
+    <string name="admin_panel">Admin Panel</string>
+    <string name="input_name_string">Lütfen isminizi giriniz:</string>
+
+</resources>
