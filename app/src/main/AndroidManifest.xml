@@ -14,9 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminPanel"></activity>
-        <activity android:name=".AdminLoginPanel"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".SelfieViewActivity"></activity>
+        <activity android:name=".AdminPanel" />
+        <activity
+            android:name=".AdminLoginPanel"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

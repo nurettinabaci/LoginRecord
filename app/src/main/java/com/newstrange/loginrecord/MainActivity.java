@@ -3,11 +3,15 @@ package com.newstrange.loginrecord;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +50,9 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private SharedPreferences mPreferences;
+    //private SharedPreferences.Editor mEditor;
 
     public static final String USERNAME = "username";
     private StorageReference mStorageRef;
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            mDatabaseIns.setPersistenceEnabled(true); // disk persistance(offline)
         }
 
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
@@ -108,10 +117,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEnter_button.setOnClickListener(this);
         mExit_button.setOnClickListener(this);
 
+        // TODO :::::::::
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mPreferences = getSharedPreferences("com.newstrange.loginrecord", Context.MODE_PRIVATE)
+        mName = mPreferences.getString(USERNAME, null);
 
-        if (savedInstanceState != null) {
-            mName = savedInstanceState.getString(USERNAME);
-//            Toast.makeText(MainActivity.this, mName, Toast.LENGTH_SHORT).show();
+        // changed to Shared pref
+//        if (savedInstanceState != null) {
+//            mName = savedInstanceState.getString(USERNAME);
+////            Toast.makeText(MainActivity.this, mName, Toast.LENGTH_SHORT).show();
+        if (mName != null){
+            Log.i("MAINACTIVTTY", mName);
         } else {
             mPopupInputDialogView = new View(getApplicationContext());
             showCustomDialog(mPopupInputDialogView);
@@ -133,6 +149,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setCancelable(false);
         final Button btnLogin = dialog.findViewById(R.id.ok_button);
         final EditText username = dialog.findViewById(R.id.name);
+        String checkName = mPreferences.getString(USERNAME, null);
+        if (checkName != null) {
+            username.setText(checkName);
+            btnLogin.setEnabled(checkName != null);
+        }
+
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -152,7 +174,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String name = username.getText().toString().trim();
+
+                mPreferences.edit().putString(USERNAME, name).commit();
+
                 mName = name;
                 Toast.makeText(MainActivity.this, mName, Toast.LENGTH_SHORT).show();
                 dialog.cancel();
@@ -426,9 +452,6 @@ progressDialog.setMessage("Yükleniyor " + ((int) progress) + "%...");
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             mPhoto = bitmap;
             mImageView.setImageBitmap(bitmap);
-
         }
-
-
     }
 }

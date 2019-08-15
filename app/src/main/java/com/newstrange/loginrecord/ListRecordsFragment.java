@@ -30,7 +30,7 @@ public class ListRecordsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_list_recors, container, false);
+        final View view = inflater.inflate(R.layout.fragment_list_records, container, false);
 
         mDatabaseIns = FirebaseDatabase.getInstance();
 
@@ -40,7 +40,7 @@ public class ListRecordsFragment extends Fragment {
 
         final ArrayList<User> workerArray = new ArrayList<>();
 
-        // take entered worker list
+        // take entered workers list
         DatabaseReference enteredUsersRef = user_details.child("Giriş");
         enteredUsersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,7 +51,7 @@ public class ListRecordsFragment extends Fragment {
                     Log.i("RECORDSFRAGMENT", user.toString());
                     workerArray.add(user);
                 }
-                TextView textView = view.findViewById(R.id.list_recors_text);
+                TextView textView = view.findViewById(R.id.list_records_text);
                 textView.setVisibility(View.GONE);
             }
 
@@ -59,9 +59,10 @@ public class ListRecordsFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
         Log.i("RECORDSFRAGMENT", String.valueOf(workerArray.size()));
 
-        // take entered worker list
+        // take exited workers list
         DatabaseReference exitedUsersRef = user_details.child("Çıkış");
         exitedUsersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,14 +75,12 @@ public class ListRecordsFragment extends Fragment {
                 }
 
                 RecordsAdapter recordsAdapter = new RecordsAdapter(getActivity(), workerArray);
-
                 mRecyclerView.setAdapter(recordsAdapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

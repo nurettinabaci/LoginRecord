@@ -1,6 +1,8 @@
 package com.newstrange.loginrecord;
 
 import android.content.Context;
+import android.content.Intent;
+
 import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -36,6 +39,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull RecordsAdapter.MyViewHolder myViewHolder, int i) {
         User selectedUser = mUserList.get(i);
+        Log.i("RECORDs - ADAPTER ", selectedUser.toString());
         myViewHolder.setData(selectedUser, i);
     }
 
@@ -49,13 +53,26 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
         TextView worker_name, worker_hour, worker_date;
 
 
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             worker_name = itemView.findViewById(R.id.worker_name);
             worker_hour = itemView.findViewById(R.id.worker_hour);
             worker_date = itemView.findViewById(R.id.worker_date);
             entering_imageView = itemView.findViewById(R.id.entering_token);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(mContext, "ITEM CLICKED", Toast.LENGTH_SHORT).show();
+                    User selectedUser = mUserList.get(getAdapterPosition());
+                    Log.i("LOG ADAPTER", selectedUser.toString());
+                    String image_id = selectedUser.getName() + "_" + selectedUser.getEntering() + "_" + selectedUser.getHour() + "_" + selectedUser.getDate();
+
+                    Intent intent = new Intent(mContext, SelfieViewActivity.class);
+                    intent.putExtra("image_name", image_id);
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void setData(User selectedUser, int position) {
@@ -65,20 +82,18 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
             this.worker_date.setText(selectedUser.getDate());
             String durum = selectedUser.getEntering();
 
-            if (durum.equals(MainActivity.DURUM_GIRIS)){
+            if (durum.equals(MainActivity.DURUM_GIRIS)) {
 
 //                entering_imageView.setColorFilter(colorResId[0]);
                 entering_imageView.setColorFilter(mContext.getResources().getColor(colorResId[0]),
                         PorterDuff.Mode.SRC_IN);
-            }else if (durum.equals(MainActivity.DURUM_CIKIS)){
+            } else if (durum.equals(MainActivity.DURUM_CIKIS)) {
 
 //                entering_imageView.setColorFilter(colorResId[1]);
                 entering_imageView.setColorFilter(mContext.getResources().getColor(colorResId[1]),
                         PorterDuff.Mode.SRC_IN);
-
-
             }
-
         }
     }
+
 }

@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     tools:mContext=".AdminLoginPanel">
 
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Admin panel giriş"
-        android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="@id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Admin panel giriş"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
         <TextView
             android:layout_width="150dp"
@@ -33,6 +33,7 @@
 
         <EditText
             android:id="@+id/admin_id"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -49,6 +50,7 @@
 
         <EditText
             android:id="@+id/admin_password"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -58,7 +60,7 @@
 
         <Button
             android:id="@+id/admin_enter_button"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="24dp"
             android:textSize="20sp"
             android:text="Giriş"
             android:textAllCaps="false"

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +50,7 @@ public class ListSelfiesFragment extends Fragment {
         final ArrayList<String> mPhotoIds = new ArrayList<>();
         final ArrayList<Bitmap> mPhotoArrayList = new ArrayList<>();
 
-         mAdapter = new SelfiesAdapter(getActivity(), mPhotoArrayList, mPhotoIds);
+        mAdapter = new SelfiesAdapter(getActivity(), mPhotoArrayList, mPhotoIds);
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);

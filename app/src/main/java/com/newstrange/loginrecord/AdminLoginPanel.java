@@ -47,7 +47,6 @@ public class AdminLoginPanel extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
-
         mAdminId=findViewById(R.id.admin_id);
         mAdminPass = findViewById(R.id.admin_password);
         mAdminLoginButton = findViewById(R.id.admin_enter_button);
@@ -110,5 +109,4 @@ public class AdminLoginPanel extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

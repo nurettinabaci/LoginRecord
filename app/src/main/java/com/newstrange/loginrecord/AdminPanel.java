@@ -60,7 +60,6 @@ public class AdminPanel extends AppCompatActivity {
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .replace(R.id.fragment_container, mSelectedFragment)
                             .commit();
-
                     return true;
                 }
             };
