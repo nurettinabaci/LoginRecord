@@ -41,7 +41,7 @@ public class ListRecordsFragment extends Fragment {
         final ArrayList<User> workerArray = new ArrayList<>();
 
         // take entered workers list
-        DatabaseReference enteredUsersRef = user_details.child("Giriş");
+        DatabaseReference enteredUsersRef = user_details.child("Entry");
         enteredUsersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,7 +63,7 @@ public class ListRecordsFragment extends Fragment {
         Log.i("RECORDSFRAGMENT", String.valueOf(workerArray.size()));
 
         // take exited workers list
-        DatabaseReference exitedUsersRef = user_details.child("Çıkış");
+        DatabaseReference exitedUsersRef = user_details.child("Exit");
         exitedUsersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

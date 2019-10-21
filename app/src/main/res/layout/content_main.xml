@@ -9,62 +9,65 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
-        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
         android:gravity="top|center"
         android:orientation="vertical">
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/enter_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Giriş"
+            android:text="Entry"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/exit_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Çıkış"
+            android:text="Exit"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
-            android:textAllCaps="false"
             android:id="@+id/send_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="Gönder"
-            android:textSize="24sp"
-            />
+            android:text="Send"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cardview_dark_background"
-            />
+            android:background="@color/cardview_dark_background" />
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:elevation="@dimen/cardview_compat_inset_shadow"
-            android:layout_gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/photo_here"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fotoğraf"
-                android:gravity="center|top"/>
+            android:paddingLeft="32dp">
 
             <ImageView
                 android:id="@+id/show_photo_before_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 app:srcCompat="@android:color/darker_gray" />
-        </FrameLayout>
+
+            <TextView
+                android:id="@+id/photo_here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Selfie" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

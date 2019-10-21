@@ -77,7 +77,7 @@ public class SelfiesAdapter extends RecyclerView.Adapter<SelfiesAdapter.ImageVie
             this.imageView.setImageBitmap(bitmap);
             this.imageName.setText(photoName);
 
-            if (photoName.contains("giris"))
+            if (photoName.contains("entry"))
 //                this.imageName.setTextColor(colorResId[0]);
                 this.imageName.setTextColor(mContext.getResources().getColor(colorResId[0]));
             else

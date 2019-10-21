@@ -66,7 +66,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
                     //Toast.makeText(mContext, "ITEM CLICKED", Toast.LENGTH_SHORT).show();
                     User selectedUser = mUserList.get(getAdapterPosition());
                     Log.i("LOG ADAPTER", selectedUser.toString());
-                    String image_id = selectedUser.getName() + "_" + selectedUser.getEntering() + "_" + selectedUser.getHour() + "_" + selectedUser.getDate();
+                    String image_id = selectedUser.getName() + "_" + selectedUser.getEntry() + "_" + selectedUser.getHour() + "_" + selectedUser.getDate();
 
                     Intent intent = new Intent(mContext, SelfieViewActivity.class);
                     intent.putExtra("image_name", image_id);
@@ -80,14 +80,14 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
             this.worker_name.setText(selectedUser.getName());
             this.worker_hour.setText(selectedUser.getHour());
             this.worker_date.setText(selectedUser.getDate());
-            String durum = selectedUser.getEntering();
+            String durum = selectedUser.getEntry();
 
-            if (durum.equals(MainActivity.DURUM_GIRIS)) {
+            if (durum.equals(MainActivity.CASE_ENTRY)) {
 
 //                entering_imageView.setColorFilter(colorResId[0]);
                 entering_imageView.setColorFilter(mContext.getResources().getColor(colorResId[0]),
                         PorterDuff.Mode.SRC_IN);
-            } else if (durum.equals(MainActivity.DURUM_CIKIS)) {
+            } else if (durum.equals(MainActivity.CASE_EXIT)) {
 
 //                entering_imageView.setColorFilter(colorResId[1]);
                 entering_imageView.setColorFilter(mContext.getResources().getColor(colorResId[1]),

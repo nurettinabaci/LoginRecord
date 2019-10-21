@@ -2,8 +2,7 @@
 
 <!--This layout contains an ImageView to display the thumbnail image in gallery view.-->
 
-<com.newstrange.loginrecord.SquareLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.newstrange.loginrecord.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,6 +10,7 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/photo_image_view"
             android:layout_width="match_parent"
@@ -19,13 +19,13 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:text="Resim ismi"
-            android:textColor="@color/colorAccent"
             android:id="@+id/photo_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|left"
-            android:textSize="16sp"
-            android:padding="32dp" />
+            android:padding="32dp"
+            android:text="Photo name"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
     </FrameLayout>
 </com.newstrange.loginrecord.SquareLayout>

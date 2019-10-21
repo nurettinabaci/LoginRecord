@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/list_records_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Kayıtları listele"
-        android:textSize="30sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="List the records"
+        android:textSize="30sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/records_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </RelativeLayout>

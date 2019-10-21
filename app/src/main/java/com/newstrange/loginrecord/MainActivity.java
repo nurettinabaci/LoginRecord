@@ -3,14 +3,12 @@ package com.newstrange.loginrecord;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -52,38 +50,33 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences mPreferences;
-    //private SharedPreferences.Editor mEditor;
-
-    public static final String USERNAME = "username";
     private StorageReference mStorageRef;
     private static FirebaseDatabase mDatabaseIns;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int PICK_IMAGE_REQUEST = 234;
 
-    private Button mSendButton;
+    public static final String USERNAME = "username";
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private Button mSend_Button;
     private Button mEnter_button;
     private Button mExit_button;
 
-    final String[] months = {"", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
-            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"};
+    final String[] months = {"", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
 
-    Calendar takvim = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance();
 
-    //  private static Uri filePath;
     private static Bitmap mPhoto;
 
-    public static final String DURUM_GIRIS = "giris";
-    public static final String DURUM_CIKIS = "cikis";
+    public static final String CASE_ENTRY = "entry";
+    public static final String CASE_EXIT = "exit";
 
-    private static String mDurum = "giris";
+    private static String mCase = "entry";
     private static String mName = null;
 
-    String tarih = takvim.get(Calendar.DATE) + "." + months[takvim.get(Calendar.MONTH) + 1] + "." + takvim.get(Calendar.YEAR);
+    String date = calendar.get(Calendar.DATE) + "." + months[calendar.get(Calendar.MONTH) + 1] + "." + calendar.get(Calendar.YEAR);
 
     private ImageView mImageView;
     private View mPopupInputDialogView;
-
-//metodun içinde saati böyle alıcaz String currentTime = getCurrentTime();
 
 
     @Override
@@ -93,47 +86,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // FIREBASE storage
-        // FIREBASE database
+
         if (mDatabaseIns == null) {
             mDatabaseIns = FirebaseDatabase.getInstance();
             mDatabaseIns.setPersistenceEnabled(true);
-//            mDatabaseIns.setPersistenceEnabled(true); // disk persistance(offline)
         }
 
-
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mImageView = findViewById(R.id.show_photo_before_sent);
         mEnter_button = findViewById(R.id.enter_button);
         mExit_button = findViewById(R.id.exit_button);
-        mSendButton = findViewById(R.id.send_button);
-        mSendButton.setVisibility(View.INVISIBLE);
+        mSend_Button = findViewById(R.id.send_button);
+        mSend_Button.setVisibility(View.INVISIBLE);
 
 
-        mSendButton.setOnClickListener(this);
+        mSend_Button.setOnClickListener(this);
         mEnter_button.setOnClickListener(this);
         mExit_button.setOnClickListener(this);
 
-        // TODO :::::::::
+
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mPreferences = getSharedPreferences("com.newstrange.loginrecord", Context.MODE_PRIVATE)
         mName = mPreferences.getString(USERNAME, null);
 
-        // changed to Shared pref
-//        if (savedInstanceState != null) {
-//            mName = savedInstanceState.getString(USERNAME);
-////            Toast.makeText(MainActivity.this, mName, Toast.LENGTH_SHORT).show();
-        if (mName != null){
-            Log.i("MAINACTIVTTY", mName);
+        if (mName != null) {
+            Log.i("MAINACTIVITY", mName);
         } else {
             mPopupInputDialogView = new View(getApplicationContext());
             showCustomDialog(mPopupInputDialogView);
         }
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -141,10 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putString(USERNAME, mName);
     }
 
-
     public void showCustomDialog(View view) {
         final Dialog dialog = new Dialog(this);
-        dialog.setTitle("Kullanıcı Girişi");
+        dialog.setTitle("User Login");
         dialog.setContentView(R.layout.popup_name_input_dialog);
         dialog.setCancelable(false);
         final Button btnLogin = dialog.findViewById(R.id.ok_button);
@@ -176,9 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
 
                 String name = username.getText().toString().trim();
-
                 mPreferences.edit().putString(USERNAME, name).commit();
-
                 mName = name;
                 Toast.makeText(MainActivity.this, mName, Toast.LENGTH_SHORT).show();
                 dialog.cancel();
@@ -198,150 +178,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String currentTime = getCurrentTime();
 
             //create new user for keeping photo storage IDS in database
-            User user = new User(mName, currentTime, tarih, mDurum);
+            User user = new User(mName, currentTime, date, mCase);
 
-            if (mDurum == DURUM_GIRIS) {
+            if (mCase == CASE_ENTRY) {
 
-                DatabaseReference user_details = mDatabaseIns.getReference("Giriş");
+                DatabaseReference user_details = mDatabaseIns.getReference("Entry");
                 String userId = user_details.push().getKey();
                 user_details.child(userId).setValue(user);
 
-            } else if (mDurum == DURUM_CIKIS) {
+            } else if (mCase == CASE_EXIT) {
 
-                DatabaseReference user_details = mDatabaseIns.getReference("Çıkış");
+                DatabaseReference user_details = mDatabaseIns.getReference("Exit");
                 String userId = user_details.push().getKey();
                 user_details.child(userId).setValue(user);
             }
 
-            String image_id = mName + "_" + mDurum + "_" + currentTime + "_" + tarih;
-
+            String image_id = mName + "_" + mCase + "_" + currentTime + "_" + date;
 
             // mPhoto UNIQUE ID : first save image IDs to database to get the images from admin panel
             DatabaseReference user_details = mDatabaseIns.getReference("storeIDs");
             String photoID = user_details.push().getKey();
             user_details.child(photoID).setValue(image_id);
 
-
             // then save images to storage
             Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
-            StorageReference riversRef = mStorageRef.child("images/" + image_id + ".jpeg"); // png is better
-            UploadTask uploadTask = riversRef.putBytes(data);
-            riversRef.putBytes(data)
+            StorageReference photosRef = mStorageRef.child("images/" + image_id + ".jpeg");
+            UploadTask uploadTask = photosRef.putBytes(data);
+            photosRef.putBytes(data)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //if the upload is successfull
-                            //hiding the progress dialog
+                            //if the upload is successful
+                            //hide the progress dialog
                             progressDialog.dismiss();
 
-                            //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "Dosya yüklendi", Toast.LENGTH_LONG).show();
+                            //and display a success toast
+                            Toast.makeText(getApplicationContext(), "File uploaded", Toast.LENGTH_LONG).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            //if the upload is not successfull
-                            //hiding the progress dialog
+                            //if the upload is not successful
+                            //hide the progress dialog
                             progressDialog.dismiss();
 
-                            //and displaying error message
+                            //and display error message
                             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
+                            //calculate progress percentage
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 
-                            //displaying percentage in progress dialog
-                            progressDialog.setMessage("Yükleniyor " + ((int) progress) + "%...");
+                            //display percentage in progress dialog
+                            progressDialog.setMessage("Uploading " + ((int) progress) + "%...");
                         }
                     });
         }
         //if there is no any file
         else {
-            Toast.makeText(getApplicationContext(), "Lütfen resim çekin", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please take a selfie", Toast.LENGTH_LONG).show();
         }
-
-        //////////  ESKİSİ - galeriden seçme
-/*
- if (filePath != null) {
- //displaying a progress dialog while upload is going on
- final ProgressDialog progressDialog = new ProgressDialog(this);
- progressDialog.setTitle("Uploading");
- progressDialog.show();
-
- String currentTime = getCurrentTime();
-
- //create new user for only database storage
- User user = new User(mName, currentTime, tarih);
-
- if (mDurum == DURUM_GIRIS) {
-
- DatabaseReference user_details = mDatabaseIns.getReference("Giriş");
- String userId = user_details.push().getKey();
- user_details.child(userId).setValue(user);
-
- } else if (mDurum == DURUM_CIKIS) {
-
- DatabaseReference user_details = mDatabaseIns.getReference("Çıkış");
- String userId = user_details.push().getKey();
- user_details.child(userId).setValue(user);
- }
-
-
- // create name of image to upload to storage
- String image_id = mName + "_" + mDurum + "_" + currentTime + "_" + tarih;
-
-
- // mPhoto UNIQUE ID : first save image IDs to database to get the images from admin panel
- DatabaseReference user_details = mDatabaseIns.getReference("storeIDs");
- String photoID = user_details.push().getKey();
- user_details.child(photoID).setValue(image_id);
-
- // then save images to storage
- StorageReference riversRef = mStorageRef.child("images/" + image_id + ".png");
- riversRef.putFile(mPhoto)
- .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-@Override public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//if the upload is successfull
-//hiding the progress dialog
-progressDialog.dismiss();
-
-//and displaying a success toast
-Toast.makeText(getApplicationContext(), "Dosya yüklendi", Toast.LENGTH_LONG).show();
-}
-})
- .addOnFailureListener(new OnFailureListener() {
-@Override public void onFailure(@NonNull Exception exception) {
-//if the upload is not successfull
-//hiding the progress dialog
-progressDialog.dismiss();
-
-//and displaying error message
-Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-}
-})
- .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-@Override public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//calculating progress percentage
-double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-//displaying percentage in progress dialog
-progressDialog.setMessage("Yükleniyor " + ((int) progress) + "%...");
-}
-});
- }
- //if there is not any file
- else {
- Toast.makeText(getApplicationContext(), "Lütfen bir resim seçin", Toast.LENGTH_LONG).show();
- }
- */
     }
 
     public static String getCurrentTime() {
@@ -383,25 +286,14 @@ progressDialog.setMessage("Yükleniyor " + ((int) progress) + "%...");
     @Override
     public void onClick(View v) {
         if (v == mEnter_button) {
-//            showFileChooser(); // gallery
-            mDurum = DURUM_GIRIS;
-            takePictureFromCamera(); // camera
-
+            mCase = CASE_ENTRY;
+            takePictureFromCamera();
         } else if (v == mExit_button) {
-//            showFileChooser(); // gallery
-            mDurum = DURUM_CIKIS;
-            takePictureFromCamera(); // camera
-
-        } else if (v == mSendButton) {
+            mCase = CASE_EXIT;
+            takePictureFromCamera();
+        } else if (v == mSend_Button) {
             uploadImage();
         }
-    }
-
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Resim seç"), PICK_IMAGE_REQUEST);
     }
 
     private void takePictureFromCamera() {
@@ -413,41 +305,26 @@ progressDialog.setMessage("Yükleniyor " + ((int) progress) + "%...");
                 ).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
-                ////
+                // Capture image with camera
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
-                ////
             }
 
             @Override
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                 token.continuePermissionRequest();
             }
-
         }).check();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        //FROM GALLERY
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//            filePath = data.getData();
-//            Log.i("MAINACTIVTTY", filePath.toString());
-//            mSendButton.setVisibility(View.VISIBLE);
-//
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-//                mImageView.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } else
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Uri u = data.getData();
-            mSendButton.setVisibility(View.VISIBLE);
+//            Uri u = data.getData();
+            mSend_Button.setVisibility(View.VISIBLE);
 
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             mPhoto = bitmap;

@@ -4,16 +4,16 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class User {
-    private String name, hour, date, entering;
+    private String name, hour, date, entry;
 
     public User() {
     }
 
-    public User(String name, String hour, String date, String entering) {
+    public User(String name, String hour, String date, String entry) {
         this.name = name;
         this.hour = hour;
         this.date = date;
-        this.entering = entering;
+        this.entry = entry;
     }
 
     public String getName() {
@@ -28,8 +28,8 @@ public class User {
         return date;
     }
 
-    public String getEntering() {
-        return entering;
+    public String getEntry() {
+        return entry;
     }
 
     public void setHour(String hour) {
@@ -44,13 +44,13 @@ public class User {
         this.name = name;
     }
 
-    public void setEntering(String entering) {
-        this.entering = entering;
+    public void setEntry(String entry) {
+        this.entry = entry;
     }
 
     @Override
     public String toString() {
-        return getName() + " - " + getHour() + " - " + getDate() + " - " + getEntering();
+        return getName() + " - " + getHour() + " - " + getDate() + " - " + getEntry();
 
     }
 }

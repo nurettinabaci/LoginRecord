@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-
 public class SelfieViewActivity extends AppCompatActivity {
 
     @Override
@@ -31,7 +30,6 @@ public class SelfieViewActivity extends AppCompatActivity {
         final ImageView image_view = findViewById(R.id.image_view);
         TextView image_name = findViewById(R.id.img_id);
         image_name.setText(imageName);
-
 
         long ONE_MEGABYTE = 1024 * 1024;
 //        final ArrayList<Bitmap> mPhotoArrayList = new ArrayList<>();

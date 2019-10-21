@@ -45,7 +45,6 @@ public class AdminPanel extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                    Fragment mSelectedFragment = null;
                     switch (menuItem.getItemId()) {
                         case R.id.nav_list:
                             mSelectedFragment = new ListRecordsFragment();

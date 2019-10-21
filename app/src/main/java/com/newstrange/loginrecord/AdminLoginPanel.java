@@ -24,7 +24,6 @@ public class AdminLoginPanel extends AppCompatActivity {
     private EditText mAdminPass;
     private Button mAdminLoginButton;
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -57,7 +56,6 @@ public class AdminLoginPanel extends AppCompatActivity {
                 startSignIn();
             }
         });
-
     }
 
     private void startSignIn() {
@@ -85,13 +83,12 @@ public class AdminLoginPanel extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser currentUser){
-
         if (currentUser != null) {
             Intent intent = new Intent(AdminLoginPanel.this, AdminPanel.class);
             startActivity(intent);
             finish();
         } else {
-            Toast.makeText(AdminLoginPanel.this, "Lütfen giriş yapın.",
+            Toast.makeText(AdminLoginPanel.this, "Please sign-in.",
                     Toast.LENGTH_SHORT).show();
         }
     }

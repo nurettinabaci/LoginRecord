@@ -11,7 +11,7 @@
 
         <TextView
             android:textSize="20sp"
-            android:text="Lütfen isminizi girin:"/>
+            android:text="Enter your name:"/>
     </TableRow>
 
     <TableRow
@@ -21,7 +21,7 @@
 
         <EditText
             android:id="@+id/name"
-            android:hint="Örn. Ahmet"/>
+            android:hint="e.g. Donald"/>
     </TableRow>
 
     <TableRow
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ok_button"
-            android:text="Tamam"
+            android:text="OK"
             android:textAllCaps="false"/>
 
     </TableRow>

@@ -14,15 +14,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginBottom="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Admin panel giriş"
+            android:layout_marginBottom="32dp"
+            android:text="Admin login panel"
             android:textSize="30sp"
-            app:layout_constraintTop_toTopOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout" />
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@id/linearLayout" />
 
         <TextView
             android:layout_width="150dp"
@@ -33,38 +33,38 @@
 
         <EditText
             android:id="@+id/admin_id"
-            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="24dp"
-            android:ems="10" />
+            android:ems="10"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:gravity="center|top"
-            android:text="Parola"
+            android:text="Password"
             android:textSize="24sp" />
 
         <EditText
             android:id="@+id/admin_password"
-            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/admin_enter_button"
-            android:layout_marginTop="24dp"
-            android:textSize="20sp"
-            android:text="Giriş"
-            android:textAllCaps="false"
             android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Sign in"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
