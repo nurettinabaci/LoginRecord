@@ -6,6 +6,8 @@
   - Admin panel for employer
   - See entry & exit hours of employees as a list
   - See photos of employees as a list
+  - Orientation change
+  - Tablet supported
 
 ## Usage
 ##### Employee can select entry or exit and then he have to take a selfie in front of company board
