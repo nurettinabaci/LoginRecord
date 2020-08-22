@@ -6,7 +6,7 @@
   - Admin panel for employer
   - See entry & exit hours of employees as a list
   - See photos of employees as a list
-  - Orientation change
+  - Device orientation change support
   - Tablet supported
 
 ## Usage
@@ -27,12 +27,16 @@
 > Change `google-services.json` with yours to built the application (integrate to Firebase)
 
 
-## Contributing
+
 ### Dependencies
   - Firebase Realtime Database
   - Firebase Storage
   - Firebase Authentication
   - Glide
 
-### Code & Issues
-Will be added soon...
+
+Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+License
+This repository is licensed under the MIT License. Please see the LICENSE file for more details.
